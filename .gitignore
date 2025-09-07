@@ -1,0 +1,13 @@
+_pycache_/
+.venv/
+qwen-code-assistant/
+qwen-code-assistant-merged/
+qwen-code-assistant-large-merged/
+./finetuned_model/checkpoint-*
+*.safetensors
+*.pt
+*.pth
+abandon/
+finetuned_model/
+benchmark_results/
+/wandb/

@@ -1,0 +1,59 @@
+Instruction,Input ,output,timestamp
+"Problem: Optimal Path in a Dynamic Grid (Hard)
+You are given a 2D grid of size N x M, where each cell contains a positive integer cost. You start at the top-left cell (0, 0) and want to reach the bottom-right cell (N-1, M-1).
+
+At each step, you can move:
+
+Right to cell (i, j+1)
+
+Down to cell (i+1, j)
+
+Diagonal to cell (i+1, j+1)
+
+However, the cost of moving from cell A to cell B is not just the cost of B, but the maximum of the costs of A and B. Your task is to find the path from (0, 0) to (N-1, M-1) with the minimum total accumulated cost, where the accumulated cost is the sum of all movement costs along the path.
+
+🧾 Input
+The first line contains two integers N and M (1 ≤ N, M ≤ 1000).
+
+The next N lines each contain M integers representing the grid (1 ≤ grid[i][j] ≤ 10^4).
+
+🖨 Output
+Print a single integer: the minimum total cost of a path from the top-left to the bottom-right cell under the given rules.
+
+ Note
+The optimal path in the example is:
+
+(0,0)=1 → (1,1)=8 → (2,2)=3
+
+Movement costs: max(1,8)=8, max(8,3)=8
+
+Total movement cost = 8 + 8 = 16
+But this is not optimal.
+
+Better path:
+
+(0,0)=1 → (0,1)=2 → (1,2)=2 → (2,2)=3
+
+Movement costs: max(1,2)=2, max(2,2)=2, max(2,3)=3 → Total = 2+2+3 = 7
+Plus initial cell cost 1 → Final total = 1 + 7 = 8
+
+🚀 Language Requirement
+Please implement your solution in Python. Use appropriate data structures and optimize for time and space efficiency.",,"def min_cost(grid, n, m):
+    dp = [[float('inf')]*(m+1) for _ in range(n+1)]
+    dp[0][0] = grid[0][0]
+    
+    for i in range(1, n+1):
+        dp[i][0] = dp[i-1][0] + grid[i-1][0]
+    for j in range(1, m+1):
+        dp[0][j] = dp[0][j-1] + grid[0][j-1]
+        
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + grid[i-1][j-1]
+            
+    return dp[n][m]
+
+if __name__ == '__main__':
+    n, m = map(int, input().split())
+    grid = [list(map(int, input().split())) for _ in range(n)]
+    print(min_cost(grid, n, m))",2025-07-22 13:43:10.697547

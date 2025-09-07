@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Generate a Python function to validate a credit card billing address.",
+    "reference_code": "def validate_billing_address(address):\n    # Split address into individual elements\n    street, city_state_zip = address.split(\"\\n\")\n\n    # Check street element\n    if not street:\n        return False\n    \n    # Check city_state_zip element\n    elements = city_state_zip.split(\",\")\n    if len(elements) != 2:\n        return False\n    city, state_zip = elements\n    state, zip = state_zip.split(\" \")\n    if len(zip) != 5 or not zip.isdigit():\n        return False\n    \n    return True",
+    "strategy_results": {
+      "balanced": {
+        "best_result": {
+          "hybrid_score": 

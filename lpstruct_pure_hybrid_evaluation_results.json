@@ -1,0 +1,142 @@
+[
+  {
+    "case_index": 0,
+    "instruction": "Generate a Python function to validate a credit card billing address.",
+    "reference_code": "def validate_billing_address(address):\n    # Split address into individual elements",
+    "best_hybrid_score": 0.0,
+    "best_style_similarity": 0.0,
+    "best_structural_similarity": 0.0,
+    "score_improvement": 0.0,
+    "score_diversity": 0,
+    "style_structural_correlation": NaN,
+    "component_best_indices": {
+      "style": {
+        "mean": 0.0,
+        "best_idx": 0
+      },
+      "structural": {
+        "mean": 0.0,
+        "best_idx": 0
+      }
+    },
+    "structural_details": {
+      "ast_similarity": 0.0,
+      "dfg_similarity": 0.0,
+      "cfg_similarity": 0.0,
+      "call_similarity": 0.0,
+      "dependency_similarity": 0.0
+    }
+  },
+  {
+    "case_index": 1,
+    "instruction": "Generate a function in Python that takes a number and prints its factors.",
+    "reference_code": "def print_factors(x):\n  \"\"\"",
+    "best_hybrid_score": 0.0,
+    "best_style_similarity": 0.0,
+    "best_structural_similarity": 0.0,
+    "score_improvement": 0.0,
+    "score_diversity": 0,
+    "style_structural_correlation": NaN,
+    "component_best_indices": {
+      "style": {
+        "mean": 0.0,
+        "best_idx": 0
+      },
+      "structural": {
+        "mean": 0.0,
+        "best_idx": 0
+      }
+    },
+    "structural_details": {
+      "ast_similarity": 0.0,
+      "dfg_similarity": 0.0,
+      "cfg_similarity": 0.0,
+      "call_similarity": 0.0,
+      "dependency_similarity": 0.0
+    }
+  },
+  {
+    "case_index": 2,
+    "instruction": "Write a function in Python that takes two parameters, a positive integer n and a list of numbers, and returns the sum of the first n elements of the list.",
+    "reference_code": "def func(n, nums):\n  res = 0",
+    "best_hybrid_score": 0.7978622514009476,
+    "best_style_similarity": 0.8473573327064514,
+    "best_structural_similarity": 0.7483671700954437,
+    "score_improvement": 0.004454687386751144,
+    "score_diversity": 0.00602891067536003,
+    "style_structural_correlation": -0.9666109491502465,
+    "component_best_indices": {
+      "style": {
+        "mean": 0.8604784409205118,
+        "best_idx": 0
+      },
+      "structural": {
+        "mean": 0.726336687107881,
+        "best_idx": 1
+      }
+    },
+    "structural_details": {
+      "ast_similarity": 0.9980779886245728,
+      "dfg_similarity": 0.29276999831199646,
+      "cfg_similarity": 1.0000001192092896,
+      "call_similarity": 0.4472135901451111,
+      "dependency_similarity": 1.0
+    }
+  },
+  {
+    "case_index": 3,
+    "instruction": "Generate a Python program that displays all prime numbers between two numbers.",
+    "reference_code": "def display_prime_numbers(min, max):\n    for n in range(min, max):",
+    "best_hybrid_score": 0.0,
+    "best_style_similarity": 0.0,
+    "best_structural_similarity": 0.0,
+    "score_improvement": 0.0,
+    "score_diversity": 0,
+    "style_structural_correlation": NaN,
+    "component_best_indices": {
+      "style": {
+        "mean": 0.0,
+        "best_idx": 0
+      },
+      "structural": {
+        "mean": 0.0,
+        "best_idx": 0
+      }
+    },
+    "structural_details": {
+      "ast_similarity": 0.0,
+      "dfg_similarity": 0.0,
+      "cfg_similarity": 0.0,
+      "call_similarity": 0.0,
+      "dependency_similarity": 0.0
+    }
+  },
+  {
+    "case_index": 4,
+    "instruction": "Generate a code in Python for validating a given password",
+    "reference_code": "def validate_password(passwd):",
+    "best_hybrid_score": 0.0,
+    "best_style_similarity": 0.0,
+    "best_structural_similarity": 0.0,
+    "score_improvement": 0.0,
+    "score_diversity": 0,
+    "style_structural_correlation": NaN,
+    "component_best_indices": {
+      "style": {
+        "mean": 0.0,
+        "best_idx": 0
+      },
+      "structural": {
+        "mean": 0.0,
+        "best_idx": 0
+      }
+    },
+    "structural_details": {
+      "ast_similarity": 0.0,
+      "dfg_similarity": 0.0,
+      "cfg_similarity": 0.0,
+      "call_similarity": 0.0,
+      "dependency_similarity": 0.0
+    }
+  }
+]
