@@ -7,7 +7,7 @@ import psutil
 import os
 import copy
 from pathlib import Path
-os.environ["CUDA_VISIBLE_DEVICES"] = "6"  # GPU 설정
+os.environ["CUDA_VISIBLE_DEVICES"] = "6" 
 
 class PostTrainingPruner:
     def __init__(self, model, tokenizer):
@@ -37,7 +37,7 @@ class PostTrainingPruner:
         temp_path = "temp_model_{ts}.pt"
         torch.save(model, temp_path)
         size_mb = os.path.getsize(temp_path) / 1e6
-        Path(temp_path).unlink(missing_ok=True)  # 파일 삭제
+        Path(temp_path).unlink(missing_ok=True)  
         return size_mb
 
     def benchmark_inference(self, model, test_prompts, num_runs=5):
@@ -99,7 +99,7 @@ class PostTrainingPruner:
         else:
             memory_reduction = 0.0
 
-        print(f"\n🚀 성능 개선 효과:")
+        print(f"\n 성능 개선 효과:")
         print(f"   추론 속도 개선: {speed_improvement:.1f}%")
         print(f"   메모리 사용량 감소: {memory_reduction:.1f}%")
 
@@ -112,27 +112,23 @@ class PostTrainingPruner:
             'sparsity': sparsity
         }
 
-# 사용 예시
+
 def main():
-    model_path = "./finetuned_model/finetuned_V1_quantized_pruned"  # 양자화 모델 경로(또는 원본)
+    model_path = "./finetuned_model/finetuned_V1_quantized_pruned"  
     model = AutoModelForCausalLM.from_pretrained(model_path, local_files_only=True)
     tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
 
     pruner = PostTrainingPruner(model, tokenizer)
 
-    # 가지치기 적용 (예: 30%)
     pruned_model = pruner.apply_magnitude_pruning(amount=0.3)
 
-    # 테스트 프롬프트 리스트
     test_prompts = [
         "Generate a Python function to calculate fibonacci numbers:",
         "Create a function to sort a list of integers:"
     ]
 
-    # 성능 비교 출력
     pruner.compare_models(model, pruned_model, test_prompts)
 
-    # 가지치기 모델 저장
     save_dir = "./finetuned_model/finetuned_V2_quantized_pruned"
     pruned_model.save_pretrained(save_dir)
     tokenizer.save_pretrained(save_dir)

@@ -1,12 +1,11 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "3,5,6"  # GPU 설정
+os.environ["CUDA_VISIBLE_DEVICES"] = "3,5,6" 
 
 from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, BitsAndBytesConfig
 from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
 from trl import SFTTrainer
 
-# 1. 데이터셋 로드 및 전처리
 dataset = load_dataset("json", data_files="./dataset/train_data.json")
 train_val = dataset["train"].train_test_split(test_size=0.1, seed=42)
 train_dataset = dataset["train"]
@@ -28,20 +27,19 @@ bnb_config = BitsAndBytesConfig(
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 tokenizer.pad_token = tokenizer.eos_token
-# ⭐️ 토크나이즈 함수 적용!
+
 def tokenize_function(example):
     return tokenizer(
         example["text"],
         padding="max_length",
         truncation=True,
-        max_length=512,  # 원하는 길이로
+        max_length=512,
         return_tensors="pt"
     )
     
 train_dataset = train_dataset.map(format_text)
 val_dataset = val_dataset.map(format_text)
 
-# 이때 반드시 batched=True, remove_columns 적용!
 train_dataset = train_dataset.map(tokenize_function, batched=True, remove_columns=train_dataset.column_names)
 val_dataset = val_dataset.map(tokenize_function, batched=True, remove_columns=val_dataset.column_names)
 
@@ -75,7 +73,7 @@ training_args = TrainingArguments(
     fp16=True,
 )
 
-# **SFTTrainer 직접 호출**
+
 trainer = SFTTrainer(
     model=model,
     args=training_args,

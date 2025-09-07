@@ -7,7 +7,7 @@ import psutil
 import gc
 from pathlib import Path
 if os.path.exists("temp_model.pt"):
-    os.remove("temp_model.pt")  # 임시 파일 삭제
+    os.remove("temp_model.pt") 
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "6" 
 
@@ -110,7 +110,7 @@ class ModelOptimizer:
         print(f"   최적화 모델: {optimized_size:.1f} MB")
         print(f"   크기 감소: {((original_size - optimized_size) / original_size * 100):.1f}%")
         
-        print(f"\n⚡ 추론 성능 비교:")
+        print(f"\n 추론 성능 비교:")
         print("   원본 모델 벤치마킹...")
         original_perf = self.benchmark_inference(self.original_model, test_prompts)
         
@@ -131,7 +131,7 @@ class ModelOptimizer:
         else:
             memory_reduction = 0
         
-        print(f"\n🚀 성능 개선 효과:")
+        print(f"\n 성능 개선 효과:")
         print(f"   추론 속도 개선: {speed_improvement:.1f}%")
         print(f"   메모리 사용량 감소: {memory_reduction:.1f}%")
         
@@ -153,11 +153,11 @@ class ModelOptimizer:
         return model, tokenizer
 
 def main():
-    model_path = "./finetuned_model/finetuned_V1_quantized_pruned"  # 실제 모델 경로로 변경
+    model_path = "./finetuned_model/finetuned_V1_quantized_pruned"  
     optimizer = ModelOptimizer(model_path)
     optimizer.load_model()
     
-    # 조건에 맞게 동적 양자화 or BF16 변환 적용
+
     optimizer.apply_optimization()
     
     test_prompts = [

@@ -6,37 +6,27 @@ from peft import PeftModel
 from trl import SFTTrainer
 from sklearn.model_selection import train_test_split
 
-
 os.environ["WANDB_MODE"] = "offline"
-
-# CUDA 디바이스 설정 (필요에 따라 변경)
 os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 
-# 1) 경로 및 변수 설정
-BASE_MODEL = "Qwen/Qwen2.5-Coder-3B-Instruct"  # HuggingFace 허브 베이스 모델
-ADAPTER_REPO = "jack0503/my-hf-model"    # 허브에 업로드한 어댑터 repo ID
-DATA_PATH = "./dataset/pandas_code_comment_pairs.json"  # JSON 데이터 경로 (Drive 기준)
-SAVE_PATH = "./final_train"                 # 학습 결과 저장 위치
+BASE_MODEL = "Qwen/Qwen2.5-Coder-3B-Instruct"
+ADAPTER_REPO = "jack0503/my-hf-model"
+DATA_PATH = "./dataset/pandas_code_comment_pairs.json"
+SAVE_PATH = "./final_train"
 
-# 2) JSON 데이터 로드
-# 2) JSON 데이터 로드
 with open(DATA_PATH, "r", encoding="utf-8") as f:
     data = json.load(f)
 
-
 def split_dataset(data):
-    train_val_data, test_data = train_test_split(data, test_size=0.2, random_state=42)  # 20% test
-    train_data, val_data = train_test_split(train_val_data, test_size=1/8, random_state=42)  # 10% val (총 80%에서 1/8)
+    train_val_data, test_data = train_test_split(data, test_size=0.2, random_state=42)
+    train_data, val_data = train_test_split(train_val_data, test_size=1/8, random_state=42)
     return train_data, val_data, test_data
-
 
 train_data, val_data, test_data = split_dataset(data)
 
-# Dataset 객체 생성
 train_dataset = Dataset.from_list(train_data)
 val_dataset = Dataset.from_list(val_data)
 test_dataset = Dataset.from_list(test_data)
-
 
 def format_sft(example):
     return {
@@ -45,7 +35,6 @@ def format_sft(example):
         "output": example["code"].strip()
     }
 
-
 def format_text(example):
     text = f"### Instruction:\n{example['instruction']}\n\n"
     if example.get("input", "").strip():
@@ -53,17 +42,12 @@ def format_text(example):
     text += f"### Response:\n{example['output']}"
     return {"text": text}
 
-
-# 각 데이터셋에 format_sft와 format_text 적용
 train_dataset = train_dataset.map(format_sft).map(format_text)
 val_dataset = val_dataset.map(format_sft).map(format_text)
 test_dataset = test_dataset.map(format_sft).map(format_text)
 
-
-# 토크나이저 준비
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
 tokenizer.pad_token = tokenizer.eos_token
-
 
 def tokenize_function(example):
     encoding = tokenizer(
