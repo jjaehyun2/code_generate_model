@@ -5,6 +5,7 @@
 
 Hugging Face Transformers, Datasets 라이브러리를 기반으로 하며,  
 경량화 및 성능 향상을 위해 LoRA, 양자화(Quantization), 프루닝(Pruning) 등의 기법을 지원했습니다.
+
 ---
 
 ## 🚀 주요 기능
